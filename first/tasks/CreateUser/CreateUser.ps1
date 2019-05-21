@@ -1,3 +1,6 @@
+# CreateUser task implementation
+# Hash table $ask.Outputs is used to set values of task outputs
+
 param (
     $UserName,
     $Email
@@ -5,10 +8,8 @@ param (
 
 Write-Host "CreateUser: name='$UserName' email='$Email'."
 
-# Values in the hashtable will be mapped to the corresponding output values
-return @{
-    Status = 0;
-    Alias = $UserName;
-    Display = "User $UserName";
-    Emails = @('email1@example.com', $Email)
-}
+# Set each task output individually
+$ark.Outputs.Status = 0 # using direct property assignment on hashtable
+$ark.Outputs.Alias = $UserName
+$ark.Outputs['Display'] = "User $UserName" # using indexer on hashtable
+$ark.Outputs.Emails = @('email1@example.com', $Email) # store array in a hashtable

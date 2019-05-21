@@ -1,0 +1,108 @@
+{
+  "id": "activity-id",
+  "displayName": "Display name for the whole form step. Can be used in 'history of workflow steps' view.",
+  "type": "form",
+  "nextButtonText": "Submit Report",
+  "components": [
+    {
+      "name": "Unique name of a form component. Q: Should this be 'id'?",
+      "type": "singleLine",
+
+      "valueType": "string",
+      "displayName": "Display name of the component. Question: where is this displayed?",
+      "instructions": "Separate set of instructions to the user.",
+      "required": true,
+      
+      "label": "Label displayed before the component.",
+      "placeholder": "Text that is displayed inside the control before focus is set inside it.",
+      "defaultValue": {
+        "type": "eval:string",
+        "value": "workflow.inputs.myInput"
+      },
+      "visualization": "Type of visualization: string, password, email, phone number, etc.",
+      "validation": "TBD"
+    },
+    {
+      "name": "columns-container-1",
+      "type": "columns",
+      "columns": [
+        {
+          "name": "first-column",
+          "width": "0.8",
+          "components": [
+            {
+              "name": "selectUser",
+              "type": "select",
+    
+              "valueType": "string",
+              "displayName": "Display name of the component.",
+              "instructions": "The name of the component will be used as output name for this step.",
+              "required": true,
+    
+              "label": "Select User",
+              "data": {
+                "type": "eval:[string]",
+                "value": "getUsers.outputs.userList"
+              },
+              "default": {
+                "type": "eval:string",
+                "value": "123"
+              },
+              "style": "Possible values: select, list, ..."
+            },
+            {
+              "name": "selectOptions",
+              "type": "multiSelect",
+    
+              "valueType": "[string]",
+              "displayName": "Display name of the component.",
+              "instructions": "The output of this component will an array of selected values.",
+              "required": true,
+    
+              "label": "Select Options",
+              "data": {
+                "type": "eval:[object]",
+                "value": "getVirtualMachines.outputs.options"
+              },
+              "style": "Possible values: drop down with checkboxes, checkboxes inline on the form."
+            }
+          ]
+        },
+        {
+          "name": "second-column",
+          "components": [
+            {
+              "name": "issueText",
+              "type": "textArea",
+    
+              "valueType": "string",
+              "displayName": "Display name of the component.",
+              "instructions": "Separate set of instructions to the user.",
+              "required": true,
+              
+              "label": "Enter multiple lines of information.",
+              "placeholder": "Text that is displayed inside the control before focus is set inside it.",
+              "defaultValue": {
+                "type": "eval:string",
+                "value": "someStep.outputs.someValue"
+              },
+              "visualization": "?",
+              "validation": "TBD"
+    
+            },
+            {
+              "name": "infoPanel",
+              "type": "paragraph",
+    
+              "format": "markdown",
+              "value": {
+                "type": "literal:[string]",
+                "value": "This is my **important** text! Q: can i reference a separate file?"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "apiVersion": "1.0.0",
+  "inputs": {
+    "name": {
+      "type": "string",
+      "displayName": "Name",
+      "description": "Name of the person.",
+      "required": false
+    },
+    "email": {
+      "type": "string",
+      "displayName": "Email address",
+      "description": "User's email address.",
+      "required": true
+    },
+    "sendGridApiKey": {
+      "type": "string",
+      "displayName": "SendGrid API key",
+      "required": true
+    },
+    "number": {
+      "type": "string",
+      "displayName": "Number",
+      "description": "Number of date to get information about.",
+      "required": true
+    },
+    "type": {
+      "type": "string",
+      "displayName": "Type",
+      "description": "Information type.",
+      "required": true
+    }
+  },
+  "body": {
+    "id": "root",
+    "description": "Sequence of steps.",
+    "type": "sequence",
+    "items": [
+      {
+        "id": "getfact",
+        "type": "packageTask",
+        "displayName": "Echo",
+        "description": "Call echo task.",
+        "package": "voleer/getting-started@0.1.3",
+        "task": "get-number-fact",
+        "inputs": {
+          "number": {
+            "type": "eval:string",
+            "value": "workflow.inputs.number"
+          },
+          "type": {
+            "type": "eval:string",
+            "value": "workflow.inputs.type"
+          }
+        }
+      },
+      {
+        "id": "send-email-1",
+        "type": "packageTask",
+        "displayName": "Send email",
+        "description": "Send email to the user.",
+        "package": "voleer/sendgrid@0.1.6",
+        "task": "send-email",
+        "inputs": {
+          "apiKey": {
+            "type": "eval:string",
+            "value": "workflow.inputs.sendGridApiKey"
+          },
+          "fromAddress": {
+            "type": "literal:string",
+            "value": "voleer@voleer.dev"
+          },
+          "toAddress": {
+            "type": "eval:string",
+            "value": "workflow.inputs.email"
+          },
+          "subject": {
+            "type": "eval:string",
+            "value": "'Information about ' + workflow.inputs.number"
+          },
+          "body": {
+            "type": "eval:string",
+            "value": "'Hello, <b>' + workflow.inputs.name + '</b><br><br>This is what I found about <b>' + workflow.inputs.number + '</b>: ' + getfact.outputs.Result"
+          }
+        }
+      }
+    ]
+  }  
+}

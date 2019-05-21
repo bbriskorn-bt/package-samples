@@ -1,0 +1,17 @@
+{
+  "apiVersion": "1.0.0",
+  "body": {
+    "id": "root",
+    "description": "Call echo task.",
+    "type": "packageTask",
+    "displayName": "Echo",
+    "package": "voleer/getting-started@0.1.0",
+    "task": "echo",
+    "inputs": {
+      "message": {
+        "type": "literal:string",
+        "value": "Hello, World!"
+      }
+    }
+  }
+}

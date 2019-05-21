@@ -1,0 +1,21 @@
+{
+  "apiVersion": "1.0.0",
+  "displayName": "Display input message and return it as output.",
+  "description": "",
+  "inputs": [
+    {
+      "name": "message",
+      "type": "string",
+      "displayName": "Message",
+      "description": "",
+      "required": true
+    }
+  ],
+  "outputs": [
+    {
+      "name": "message",
+      "type": "string",
+      "displayName": "Same value as input message."
+    }
+  ]
+}

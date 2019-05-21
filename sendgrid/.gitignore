@@ -1,0 +1,3 @@
+# Contains rules to excude temporary files created during package development
+# from Git and from package publishing.
+temp/

@@ -18,9 +18,9 @@
     "type": "literal:object",
     "value": ["red", "blue", "green"]
   },
-  "expression-reference-to-instance-input": {
+  "expression-reference-to-workflow-instance-input": {
     "type": "eval:string",
-    "value": "instance.inputs.MyInput"
+    "value": "workflow.inputs.MyInput"
   },
   "expression-reference-to-activity-input": {
     "type": "eval:string",
@@ -32,10 +32,10 @@
   },
   "expression-using-formatting": {
     "type": "format",
-    "value": "{{instance.inputs.MyInput}} followed by {{activity7.outputs.c}}!"
+    "value": "{{workflow.inputs.MyInput}} followed by {{activity7.outputs.c}}!"
   },
   "expression-using-expression-language": {
     "type": "eval:number",
-    "value": "instance.inputs.Value1 * activity7.outputs.RecordCount"
+    "value": "workflow.inputs.Value1 * activity7.outputs.RecordCount"
   }
 }

@@ -1,0 +1,17 @@
+{
+  "apiVersion": "1.0.0",
+  "name": "getting-started",
+  "displayName": "Getting Started with Voleer",
+  "description": "Examples of tasks and templates.",
+  "version": "0.1.3",
+  "publisher": "voleer",
+  "keywords": [
+    "it",
+    "automation"
+  ],
+  "license": "MIT",
+  "type": "powershell",
+  "powershell": {
+    "engine": "5.1"
+  }
+}

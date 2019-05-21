@@ -1,0 +1,17 @@
+{
+  "apiVersion": "1.0.0",
+  "name": "sendgrid",
+  "displayName": "Send email via SendGrid",
+  "description": "Submit email for delivery via SendGrid.",
+  "version": "0.1.6",
+  "publisher": "voleer",
+  "keywords": [
+    "communication",
+    "email"
+  ],
+  "license": "MIT",
+  "type": "powershell",
+  "powershell": {
+    "engine": "5.1"
+  }
+}

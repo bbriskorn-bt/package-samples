@@ -1,38 +1,34 @@
 {
   // Version of the document schema
   "apiVersion": "1.0.0",
-  // Ordered collection of template inputs
-  // Inputs are ordered so that they can be presented in a particular way during template execution
-  "inputs": [
-    {
-      "name": "alias",
+  
+  // Template inputs, which can be passed by an API call or a webhook
+  "inputs": {
+    "alias": {
       "type": "string",
       "displayName": "User Alias",
-      "description": "Additional details about this input.",
+      "description": "A unique user alias or user principal name.",
       "required": true
     },
-    {
-      "name": "emailDomain",
+    "emailDomain": {
       "type": "string",
       "displayName": "Email Domain",
       "description": "Additional details about this input.",
       "required": true
     },
-    {
-      "name": "notify",
+    "notify": {
       "type": "boolean",
       "displayName": "Notify via email",
       "description": "...",
       "required": false
     },
-    {
-      "name": "props",
+    "props": {
       "type": "object",
       "displayName": "User Properties",
-      "description": "Additional details about this input.",
+      "description": "Optional input with flexible schema, represented by JSON object.",
       "required": false
     }
-  ],
+  },
 
   // Q: Is there a concept of template outputs?
 
@@ -50,7 +46,7 @@
         // Readable, short name of the activity that can be displayed in logs, UI
         "displayName": "Create User",
         // Task defined in a package
-        "type": "package.task",
+        "type": "packageTask",
         // Full package name and version, which includes package vendor (publisher), package name, and package version specification.
         "package": "vendor/package-name@^1.0.0",
         // Task name within above package
@@ -58,18 +54,18 @@
         // Input bindings
         "inputs": {
           "username": {
-            // Reference to a specific instance input
+            // Reference to a specific workflow instance input
             "type": "eval:string",
-            "value": "instance.inputs.alias",
+            "value": "workflow.inputs.alias",
           },
           "email": {
             // Using string template to evaluate text 'expression'
             "type": "format",
-            "value": "{{instance.inputs.alias}}@{{instance.inputs.emailDomain}}"
+            "value": "{{workflow.inputs.alias}}@{{workflow.inputs.emailDomain}}"
           },
           "fullname": {
             "type": "format",
-            "value": "{{instance.inputs.props.firstName}} {{instance.inputs.props.lastName}}"
+            "value": "{{workflow.inputs.props.firstName}} {{workflow.inputs.props.lastName}}"
           }
         }
       },
@@ -80,11 +76,14 @@
         "type": "switch",
         "value": {
           "type": "eval:string",
-          "value": "instance.inputs.notify"
+          "value": "workflow.inputs.notify"
         },
         "cases": [
           {
-            "option": true,
+            "option": {
+              "type": "literal:bool",
+              "value": "true"
+            },
             "body": {
               "id": "step3",
               "type": "sequence",
@@ -92,7 +91,7 @@
                 {
                   "id": "step4",
                   "displayName": "Send Email",
-                  "type": "package.task",
+                  "type": "packageTask",
                   "package": "some-vendor/some-package@1.2.3",
                   "task": "send-email",
                   "inputs": {
@@ -106,7 +105,7 @@
                     },
                     "message": {
                       "type": "format",
-                      "value": "Hello {{instance.inputs.props.firstName}},\nThis is email message body."
+                      "value": "Hello {{workflow.inputs.props.firstName}},\nThis is email message body."
                     }
                   }
                 }
