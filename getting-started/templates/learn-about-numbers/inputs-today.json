@@ -1,0 +1,7 @@
+{
+  "name": "Alex",
+  "email": "alext@bittitan.com",
+  "sendGridApiKey": "$env:SENDGRID_API_KEY",
+  "number": "today",
+  "type": "date"
+}
